@@ -1,0 +1,36 @@
+{
+    "name": "godevel",
+
+    "build": {
+        "dockerfile": "./Dockerfile",
+        "context": "./context"
+    },
+
+    "postCreateCommand": [
+        "/devcontainer/setup.sh"
+    ],
+
+    "runArgs": [
+        "--network", "host",
+        "--env-file", "./.devcontainer/env",
+        "-v", "/var/run/docker.sock:/var/run/docker.sock",
+        "-v", "./.devcontainer/var/go:/home/devel/.go",
+        "-v", "./.devcontainer/var/ssh:/home/devel/.ssh"
+    ],
+
+    "remoteUser": "devel",
+
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "go.toolsManagement.checkForUpdates": "local",
+                "go.useLanguageServer": true,
+                "go.gopath": "/go"
+            },
+            "extensions": [
+                "golang.Go",
+                "eamodio.gitlens"
+            ]
+        }
+    }
+}
